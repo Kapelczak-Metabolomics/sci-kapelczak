@@ -4,8 +4,8 @@ services:
   app:
     container_name: kapelczak-notes-app
     build:
-      context: .
-      dockerfile: server/Dockerfile
+      context: ./server
+      dockerfile: Dockerfile
     ports:
       - "5000:5000"
     environment:
