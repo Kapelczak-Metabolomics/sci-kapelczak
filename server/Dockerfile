@@ -1,30 +1,19 @@
-# Base image
 FROM node:20-alpine
 
-# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci
+# Use npm install instead of npm ci
+RUN npm install
 
-# Copy all files
+# Copy rest of the server files
 COPY . .
 
-# Build the application
+# Build (if using TypeScript or bundler)
 RUN npm run build
 
-# Create uploads directory
-RUN mkdir -p uploads
-
-# Expose the port
 EXPOSE 5000
 
-# Set environment variables
-ENV NODE_ENV=production
-ENV PORT=5000
-
-# Run the application
-CMD ["npm", "start"]
+CMD ["node", "dist/index.js"]
