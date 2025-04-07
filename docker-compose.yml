@@ -3,9 +3,11 @@ version: "3.8"
 services:
   app:
     container_name: kapelczak-notes-app
-    build: .
+    build:
+      context: .
+      dockerfile: server/Dockerfile
     ports:
-      - "5000:5000"  # App exposed on port 5000
+      - "5000:5000"
     environment:
       - DATABASE_URL=postgresql://kapelczak_user:your_secure_password@db:5432/kapelczak_notes
       - NODE_ENV=production
@@ -24,7 +26,6 @@ services:
       POSTGRES_PASSWORD: your_secure_password
     volumes:
       - pgdata:/var/lib/postgresql/data
-    # No external port mapping to avoid conflict with system PostgreSQL
     expose:
       - "5432"
 
